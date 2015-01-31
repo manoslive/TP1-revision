@@ -28,6 +28,7 @@ namespace TP1___Refresh
         {
             Connect();
             FillListBox();
+            FillComboBox();
             // Selection de base du listbox
             ListB_Entreprises.SelectedIndex = 0;
             RemplirFormulaire();
@@ -63,7 +64,7 @@ namespace TP1___Refresh
         private void RemplirFormulaire()
         {
             OracleCommand oraSelect = oracon.CreateCommand();
-            oraSelect.CommandText = "Select numstg, description, typestg From StagesEntreprises " +
+            oraSelect.CommandText = "Select * From StagesEntreprises " +
                                     "where NomEnt=:NomEnt";
             OracleParameter OraParamNomEnt = new OracleParameter(":NomEnt", OracleDbType.Varchar2);
             OraParamNomEnt.Value = nomEntreprise;
@@ -85,6 +86,7 @@ namespace TP1___Refresh
             TB_NumStage.DataBindings.Add("Text", stageDS, "STAGES.NumStg");
             RTB_Description.DataBindings.Add("Text", stageDS, "STAGES.Description");
             TB_TypeStage.DataBindings.Add("Text", stageDS, "STAGES.TypeStg");
+            CB_NomEntreprise.DataBindings.Add("Text", stageDS, "STAGES.NomEnt");
         }
         private void UnbindTB()
         {
@@ -94,23 +96,26 @@ namespace TP1___Refresh
             RTB_Description.Clear();
             TB_TypeStage.DataBindings.Clear();
             TB_TypeStage.Clear();
+            CB_NomEntreprise.DataBindings.Clear();
+            //CB_NomEntreprise.Items.Clear();
         }
         private void Ajouter()
         {
-            string sql = "insert into Stages" +
-                         "Values(NUMSTG.nextval,:Description,:Typestg)";
+            string sql = "insert into Stagesentreprises" +
+                         "Values(NUMSTG_seq.nextval, :NomEnt, :Description,:Typestg)";
             try
             {
                 OracleCommand oraAjout = new OracleCommand(sql, oracon);
 
+                OracleParameter OraParaNomEnt = new OracleParameter(":NomEnt", OracleDbType.Varchar2, 40);
                 OracleParameter OraParaDesc = new OracleParameter(":Description", OracleDbType.Varchar2, 40);
                 OracleParameter OraParamTypestg = new OracleParameter(":Typestg", OracleDbType.Char, 3);
 
-
+                OraParaNomEnt.Value = CB_NomEntreprise.Text;
                 OraParaDesc.Value = RTB_Description.Text;
                 OraParamTypestg.Value = TB_TypeStage.Text;
 
-
+                oraAjout.Parameters.Add(OraParaNomEnt);
                 oraAjout.Parameters.Add(OraParaDesc);
                 oraAjout.Parameters.Add(OraParamTypestg);
 
@@ -216,6 +221,29 @@ namespace TP1___Refresh
             }
         }
 
+        private void FillComboBox()
+        {
+            try
+            {
+
+
+                OracleCommand oraSelect = oracon.CreateCommand();
+                oraSelect.CommandText = "Select NomEnt From Entreprises";
+                using (OracleDataReader oraReader = oraSelect.ExecuteReader())
+                {
+                    while (oraReader.Read())
+                    {
+                        CB_NomEntreprise.Items.Add(oraReader.GetString(0));
+                    }
+                }
+
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         private void BTN_Precedent_Click(object sender, EventArgs e)
         {
             this.BindingContext[stageDS, "STAGES"].Position--;
@@ -229,7 +257,16 @@ namespace TP1___Refresh
         private void ListB_Entreprises_SelectedIndexChanged(object sender, EventArgs e)
         {
             nomEntreprise = ListB_Entreprises.GetItemText(ListB_Entreprises.SelectedItem);
+            CB_NomEntreprise.SelectedText = nomEntreprise;
             RemplirFormulaire();
+        }
+
+        private void BTN_Vider_Click(object sender, EventArgs e)
+        {
+            TB_NumStage.Clear();
+            RTB_Description.Clear();
+            TB_TypeStage.Clear();
+            CB_NomEntreprise.SelectedIndex = -1;
         }
     }
 }

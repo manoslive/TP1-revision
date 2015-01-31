@@ -41,6 +41,9 @@
             this.BTN_Sauvegarder = new System.Windows.Forms.Button();
             this.BTN_Effacer = new System.Windows.Forms.Button();
             this.LB_Entreprises = new System.Windows.Forms.Label();
+            this.LB_NomEntreprise = new System.Windows.Forms.Label();
+            this.CB_NomEntreprise = new System.Windows.Forms.ComboBox();
+            this.BTN_Vider = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ListB_Entreprises
@@ -49,7 +52,7 @@
             this.ListB_Entreprises.ItemHeight = 20;
             this.ListB_Entreprises.Location = new System.Drawing.Point(519, 57);
             this.ListB_Entreprises.Name = "ListB_Entreprises";
-            this.ListB_Entreprises.Size = new System.Drawing.Size(215, 184);
+            this.ListB_Entreprises.Size = new System.Drawing.Size(215, 204);
             this.ListB_Entreprises.TabIndex = 0;
             this.ListB_Entreprises.SelectedIndexChanged += new System.EventHandler(this.ListB_Entreprises_SelectedIndexChanged);
             // 
@@ -70,7 +73,7 @@
             // 
             // BTN_Precedent
             // 
-            this.BTN_Precedent.Location = new System.Drawing.Point(57, 221);
+            this.BTN_Precedent.Location = new System.Drawing.Point(57, 289);
             this.BTN_Precedent.Name = "BTN_Precedent";
             this.BTN_Precedent.Size = new System.Drawing.Size(112, 34);
             this.BTN_Precedent.TabIndex = 2;
@@ -80,7 +83,7 @@
             // 
             // BTN_Suivant
             // 
-            this.BTN_Suivant.Location = new System.Drawing.Point(238, 221);
+            this.BTN_Suivant.Location = new System.Drawing.Point(238, 289);
             this.BTN_Suivant.Name = "BTN_Suivant";
             this.BTN_Suivant.Size = new System.Drawing.Size(112, 34);
             this.BTN_Suivant.TabIndex = 2;
@@ -162,16 +165,48 @@
             this.LB_Entreprises.TabIndex = 5;
             this.LB_Entreprises.Text = "Entreprises offrants un stage";
             // 
+            // LB_NomEntreprise
+            // 
+            this.LB_NomEntreprise.AutoSize = true;
+            this.LB_NomEntreprise.Location = new System.Drawing.Point(38, 223);
+            this.LB_NomEntreprise.Name = "LB_NomEntreprise";
+            this.LB_NomEntreprise.Size = new System.Drawing.Size(117, 20);
+            this.LB_NomEntreprise.TabIndex = 3;
+            this.LB_NomEntreprise.Text = "Nom entreprise";
+            // 
+            // CB_NomEntreprise
+            // 
+            this.CB_NomEntreprise.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CB_NomEntreprise.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_NomEntreprise.FormattingEnabled = true;
+            this.CB_NomEntreprise.Location = new System.Drawing.Point(175, 220);
+            this.CB_NomEntreprise.Name = "CB_NomEntreprise";
+            this.CB_NomEntreprise.Size = new System.Drawing.Size(175, 28);
+            this.CB_NomEntreprise.TabIndex = 6;
+            // 
+            // BTN_Vider
+            // 
+            this.BTN_Vider.Location = new System.Drawing.Point(385, 200);
+            this.BTN_Vider.Name = "BTN_Vider";
+            this.BTN_Vider.Size = new System.Drawing.Size(112, 34);
+            this.BTN_Vider.TabIndex = 2;
+            this.BTN_Vider.Text = "Vider";
+            this.BTN_Vider.UseVisualStyleBackColor = true;
+            this.BTN_Vider.Click += new System.EventHandler(this.BTN_Vider_Click);
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 278);
+            this.ClientSize = new System.Drawing.Size(754, 353);
+            this.Controls.Add(this.CB_NomEntreprise);
             this.Controls.Add(this.LB_Entreprises);
             this.Controls.Add(this.RTB_Description);
+            this.Controls.Add(this.LB_NomEntreprise);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LB_Description);
             this.Controls.Add(this.LB_Numstage);
+            this.Controls.Add(this.BTN_Vider);
             this.Controls.Add(this.BTN_Effacer);
             this.Controls.Add(this.BTN_Sauvegarder);
             this.Controls.Add(this.BTN_Ajouter);
@@ -203,5 +238,8 @@
         private System.Windows.Forms.Button BTN_Sauvegarder;
         private System.Windows.Forms.Button BTN_Effacer;
         private System.Windows.Forms.Label LB_Entreprises;
+        private System.Windows.Forms.Label LB_NomEntreprise;
+        private System.Windows.Forms.ComboBox CB_NomEntreprise;
+        private System.Windows.Forms.Button BTN_Vider;
     }
 }
