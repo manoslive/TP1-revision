@@ -50,7 +50,6 @@
             this.LB_Entreprises.Name = "LB_Entreprises";
             this.LB_Entreprises.Size = new System.Drawing.Size(183, 224);
             this.LB_Entreprises.TabIndex = 0;
-            this.LB_Entreprises.SelectedIndexChanged += new System.EventHandler(this.LB_Entreprises_SelectedIndexChanged);
             // 
             // TB_NumStage
             // 
@@ -75,7 +74,6 @@
             this.BTN_Precedent.TabIndex = 2;
             this.BTN_Precedent.Text = "Précédent";
             this.BTN_Precedent.UseVisualStyleBackColor = true;
-            this.BTN_Precedent.Click += new System.EventHandler(this.BTN_Precedent_Click);
             // 
             // BTN_Suivant
             // 
@@ -85,7 +83,6 @@
             this.BTN_Suivant.TabIndex = 2;
             this.BTN_Suivant.Text = "Suivant";
             this.BTN_Suivant.UseVisualStyleBackColor = true;
-            this.BTN_Suivant.Click += new System.EventHandler(this.BTN_Suivant_Click);
             // 
             // LB_Numstage
             // 
@@ -130,6 +127,7 @@
             this.BTN_Ajouter.TabIndex = 2;
             this.BTN_Ajouter.Text = "Ajouter stage";
             this.BTN_Ajouter.UseVisualStyleBackColor = true;
+            this.BTN_Ajouter.Click += new System.EventHandler(this.BTN_Ajouter_Click);
             // 
             // BTN_Sauvegarder
             // 
@@ -139,6 +137,7 @@
             this.BTN_Sauvegarder.TabIndex = 2;
             this.BTN_Sauvegarder.Text = "Sauvegarder";
             this.BTN_Sauvegarder.UseVisualStyleBackColor = true;
+            this.BTN_Sauvegarder.Click += new System.EventHandler(this.BTN_Sauvegarder_Click);
             // 
             // BTN_Effacer
             // 
@@ -148,6 +147,7 @@
             this.BTN_Effacer.TabIndex = 2;
             this.BTN_Effacer.Text = "Effacer";
             this.BTN_Effacer.UseVisualStyleBackColor = true;
+            this.BTN_Effacer.Click += new System.EventHandler(this.BTN_Effacer_Click);
             // 
             // Stage
             // 

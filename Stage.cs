@@ -91,111 +91,103 @@ namespace TP1___Refresh
             TB_TypeStage.DataBindings.Clear();
             TB_TypeStage.Clear();
         }
-        /*  private void Ajouter()
-          {
-              string sql = "insert into FicheJoueur" +
-                           "(NumeroMatch, NumeroJoueur, NombreButs, NombrePasses, TempsPunition) " +
-                           "Values(:NumeroMatch,:NumeroJoueur,:NombreButs,:NombrePasses,:TempsPunition)";
-              try
-              {
-                  OracleCommand oraAjout = new OracleCommand(sql, oracon);
+        private void Ajouter()
+        {
+            string sql = "insert into Stages" +
+                         "Values(NUMSTG.nextval,:Description,:Typestg)";
+            try
+            {
+                OracleCommand oraAjout = new OracleCommand(sql, oracon);
 
-                  OracleParameter OraParaNumeroMatch = new OracleParameter(":NumeroMatch", OracleDbType.Int32);
-                  OracleParameter OraParamNumeroJoueur = new OracleParameter(":NumeroJoueur", OracleDbType.Varchar2, 40);
-
-
-                  OraParaNumeroMatch.Value = aJ.numMatch;
+                OracleParameter OraParaDesc = new OracleParameter(":Description", OracleDbType.Varchar2, 40);
+                OracleParameter OraParamTypestg = new OracleParameter(":Typestg", OracleDbType.Char, 3);
 
 
-                  oraAjout.Parameters.Add(OraParaNumeroMatch);
+                OraParaDesc.Value = RTB_Description.Text;
+                OraParamTypestg.Value = TB_TypeStage.Text;
 
-                  oraAjout.ExecuteNonQuery();
-                  RemplirFormulaire();
-              }
-              catch (OracleException ex) // Erreur "child exists"
-              {
-                  if (ex.Number == 2292)
-                      MessageBox.Show("Le joueur ne doit pas avoir de statistique dans les matchs", "Erreur 2292", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                  else
-                      MessageBox.Show(ex.Message.ToString());
-              }
-          }
-          private void Modifier()
-          {
-              Form_Ajouter_Stats ajs = new Form_Ajouter_Stats(oracon, connection);
-              ajs.isModif = false;
-              ajs.callBackForm = this;
-              ajs.Text = "Modification des Statistiques";
-              ajs.numMatch = TB_NumMatch.Text;
-              ajs.numJoueur = TB_NumJoueur.Text;
-              ajs.nbButs = TB_NbButs.Text;
-              ajs.nbPasses = TB_NbPasses.Text;
-              ajs.tempsPunition = TB_TempsPunition.Text;
-              ajs.Location = this.Location;
-              this.Hide();
 
-              if (ajs.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-              {
-                  string sql = "update FicheJoueur set NumeroMatch=:NumeroMatch, NumeroJoueur=:NumeroJoueur, NombreButs=:NombreButs, NombrePasses=:NombrePasses, TempsPunition=:TempsPunition " +
-                                  "where numerojoueur=:numerojoueur";
-                  try
-                  {
+                oraAjout.Parameters.Add(OraParaDesc);
+                oraAjout.Parameters.Add(OraParamTypestg);
 
-                      OracleCommand oraAjout = new OracleCommand(sql, oracon);
+                oraAjout.ExecuteNonQuery();
+                RemplirFormulaire();
+            }
+            catch (OracleException ex) // Erreur "child exists"
+            {
+                if (ex.Number == 2292)
+                    MessageBox.Show("Le joueur ne doit pas avoir de statistique dans les matchs", "Erreur 2292", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        private void Modifier()
+        {
+                string sql = "update STAGES set Description=:Description typestg=:TypeStg" +
+                                "where numstg=:numstg";
+                try
+                {
 
-                      OracleParameter OraParaNumeroMatch = new OracleParameter(":NumeroMatch", OracleDbType.Int32);
-                      OracleParameter OraParamNumeroJoueur = new OracleParameter(":NumeroJoueur", OracleDbType.Int32);
-                      OracleParameter OraParamNombreButs = new OracleParameter(":NombreButs", OracleDbType.Int32);
-                      OracleParameter OraParaNombrePasses = new OracleParameter(":NombrePasses", OracleDbType.Int32);
-                      OracleParameter OraParaTempsPunition = new OracleParameter(":TempsPunition", OracleDbType.Int32);
+                    OracleCommand oraAjout = new OracleCommand(sql, oracon);
 
-                      OraParaNumeroMatch.Value = ajs.numMatch;
-                      OraParamNumeroJoueur.Value = ajs.numJoueur;
-                      OraParamNombreButs.Value = ajs.nbButs;
-                      OraParaNombrePasses.Value = ajs.nbPasses;
-                      OraParaTempsPunition.Value = ajs.tempsPunition;
+                    OracleParameter OraParaDescription = new OracleParameter(":Description", OracleDbType.Varchar2, 50);
+                    OracleParameter OraParamTypeStg = new OracleParameter(":TypeStg", OracleDbType.Char, 3);
 
-                      oraAjout.Parameters.Add(OraParaNumeroMatch);
-                      oraAjout.Parameters.Add(OraParamNumeroJoueur);
-                      oraAjout.Parameters.Add(OraParamNombreButs);
-                      oraAjout.Parameters.Add(OraParaNombrePasses);
-                      oraAjout.Parameters.Add(OraParaTempsPunition);
+                    OraParaDescription.Value = RTB_Description.Text;
+                    OraParamTypeStg.Value = TB_TypeStage.Text;
 
-                      oraAjout.ExecuteNonQuery();
 
-                      RemplirFormulaire();
-                  }
-                  catch (OracleException ex)
-                  {
-                      MessageBox.Show(ex.Message.ToString());
-                  }
+                    oraAjout.Parameters.Add(OraParaDescription);
+                    oraAjout.Parameters.Add(OraParamTypeStg);
 
-              }
-          }
-          private void Supprimer()
-          {
-              if (MessageBox.Show("Voulez-vous vraiment effacer cette entrée ?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-              {
-                  try
-                  {
-                      OracleParameter paramNomEquipe = new OracleParameter(":numjoueur", OracleDbType.Int32);
-                      paramNomEquipe.Value = TB_NumJoueur.Text;
-                      string sql = "Delete from joueur Where numerojoueur =:numjoueur";
-                      OracleCommand oraDelete = new OracleCommand(sql, oracon);
-                      oraDelete.Parameters.Add(paramNomEquipe);
-                      oraDelete.ExecuteNonQuery();
-                      RemplirFormulaire();
-                  }
-                  catch (OracleException ex)
-                  {
-                      if (ex.Number == 2292) // Erreur "child exists"
-                          MessageBox.Show("Vous ne pouvez pas effacer des joueurs avec des matchs", "Erreur 2292", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                      else
-                          MessageBox.Show(ex.Message.ToString());
-                  }
-              }
-          }
-         */
+                    oraAjout.ExecuteNonQuery();
+
+                    RemplirFormulaire();
+                }
+                catch (OracleException ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
+            }
+
+        private void BTN_Ajouter_Click(object sender, EventArgs e)
+        {
+            Ajouter();
+        }
+
+        private void BTN_Sauvegarder_Click(object sender, EventArgs e)
+        {
+            Modifier();
+        }
+
+        private void BTN_Effacer_Click(object sender, EventArgs e)
+        {
+            Supprimer();
+        }
+        private void Supprimer()
+        {
+            if (MessageBox.Show("Voulez-vous vraiment effacer cette entrée ?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                try
+                {
+                    OracleParameter paramNumStg = new OracleParameter(":NumStg", OracleDbType.Int32);
+                    paramNumStg.Value = TB_NumStage.Text;
+                    string sql = "Delete from stats Where NumStg=:NumStg";
+                    OracleCommand oraDelete = new OracleCommand(sql, oracon);
+                    oraDelete.Parameters.Add(paramNumStg);
+                    oraDelete.ExecuteNonQuery();
+                    RemplirFormulaire();
+                }
+                catch (OracleException ex)
+                {
+                    if (ex.Number == 2292) // Erreur "child exists"
+                        MessageBox.Show("Vous ne pouvez pas effacer des joueurs avec des matchs", "Erreur 2292", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
 
         private void BTN_Precedent_Click(object sender, EventArgs e)
         {
