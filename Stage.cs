@@ -23,6 +23,15 @@ namespace TP1___Refresh
         {
             InitializeComponent();
         }
+
+        private void Stage_Load(object sender, EventArgs e)
+        {
+            Connect();
+            FillListBox();
+            // Selection de base du listbox
+            ListB_Entreprises.SelectedIndex = 0;
+            RemplirFormulaire();
+        }
         public bool Connect()
         {
             bool resultat = false;
@@ -51,18 +60,13 @@ namespace TP1___Refresh
             }
             return resultat;
         }
-        private void Stage_Load(object sender, EventArgs e)
-        {
-            Connect();
-            RemplirFormulaire();
-        }
         private void RemplirFormulaire()
         {
             OracleCommand oraSelect = oracon.CreateCommand();
-            oraSelect.CommandText = "Select * From StagesEntreprises " +
+            oraSelect.CommandText = "Select numstg, description, typestg From StagesEntreprises " +
                                     "where NomEnt=:NomEnt";
             OracleParameter OraParamNomEnt = new OracleParameter(":NomEnt", OracleDbType.Varchar2);
-            OraParamNomEnt.Value = 102;
+            OraParamNomEnt.Value = nomEntreprise;
             oraSelect.Parameters.Add(OraParamNomEnt);
             using (OracleDataAdapter oraAdapter = new OracleDataAdapter(oraSelect))
             {
@@ -123,33 +127,33 @@ namespace TP1___Refresh
         }
         private void Modifier()
         {
-                string sql = "update STAGES set Description=:Description typestg=:TypeStg" +
-                                "where numstg=:numstg";
-                try
-                {
+            string sql = "update STAGES set Description=:Description typestg=:TypeStg" +
+                            "where numstg=:numstg";
+            try
+            {
 
-                    OracleCommand oraAjout = new OracleCommand(sql, oracon);
+                OracleCommand oraAjout = new OracleCommand(sql, oracon);
 
-                    OracleParameter OraParaDescription = new OracleParameter(":Description", OracleDbType.Varchar2, 50);
-                    OracleParameter OraParamTypeStg = new OracleParameter(":TypeStg", OracleDbType.Char, 3);
+                OracleParameter OraParaDescription = new OracleParameter(":Description", OracleDbType.Varchar2, 50);
+                OracleParameter OraParamTypeStg = new OracleParameter(":TypeStg", OracleDbType.Char, 3);
 
-                    OraParaDescription.Value = RTB_Description.Text;
-                    OraParamTypeStg.Value = TB_TypeStage.Text;
+                OraParaDescription.Value = RTB_Description.Text;
+                OraParamTypeStg.Value = TB_TypeStage.Text;
 
 
-                    oraAjout.Parameters.Add(OraParaDescription);
-                    oraAjout.Parameters.Add(OraParamTypeStg);
+                oraAjout.Parameters.Add(OraParaDescription);
+                oraAjout.Parameters.Add(OraParamTypeStg);
 
-                    oraAjout.ExecuteNonQuery();
+                oraAjout.ExecuteNonQuery();
 
-                    RemplirFormulaire();
-                }
-                catch (OracleException ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
+                RemplirFormulaire();
             }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+
+        }
 
         private void BTN_Ajouter_Click(object sender, EventArgs e)
         {
@@ -189,6 +193,29 @@ namespace TP1___Refresh
             }
         }
 
+        private void FillListBox()
+        {
+            try
+            {
+
+
+                OracleCommand oraSelect = oracon.CreateCommand();
+                oraSelect.CommandText = "Select NomEnt From Entreprises";
+                using (OracleDataReader oraReader = oraSelect.ExecuteReader())
+                {
+                    while (oraReader.Read())
+                    {
+                        ListB_Entreprises.Items.Add(oraReader.GetString(0));
+                    }
+                }
+
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
         private void BTN_Precedent_Click(object sender, EventArgs e)
         {
             this.BindingContext[stageDS, "STAGES"].Position--;
@@ -199,9 +226,10 @@ namespace TP1___Refresh
             this.BindingContext[stageDS, "STAGES"].Position++;
         }
 
-        private void LB_Entreprises_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListB_Entreprises_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nomEntreprise = LB_Entreprises.SelectedItem.ToString();
+            nomEntreprise = ListB_Entreprises.GetItemText(ListB_Entreprises.SelectedItem);
+            RemplirFormulaire();
         }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LB_Entreprises = new System.Windows.Forms.ListBox();
+            this.ListB_Entreprises = new System.Windows.Forms.ListBox();
             this.TB_NumStage = new System.Windows.Forms.TextBox();
             this.TB_TypeStage = new System.Windows.Forms.TextBox();
             this.BTN_Precedent = new System.Windows.Forms.Button();
@@ -40,16 +40,18 @@
             this.BTN_Ajouter = new System.Windows.Forms.Button();
             this.BTN_Sauvegarder = new System.Windows.Forms.Button();
             this.BTN_Effacer = new System.Windows.Forms.Button();
+            this.LB_Entreprises = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // LB_Entreprises
+            // ListB_Entreprises
             // 
-            this.LB_Entreprises.FormattingEnabled = true;
-            this.LB_Entreprises.ItemHeight = 20;
-            this.LB_Entreprises.Location = new System.Drawing.Point(554, 21);
-            this.LB_Entreprises.Name = "LB_Entreprises";
-            this.LB_Entreprises.Size = new System.Drawing.Size(183, 224);
-            this.LB_Entreprises.TabIndex = 0;
+            this.ListB_Entreprises.FormattingEnabled = true;
+            this.ListB_Entreprises.ItemHeight = 20;
+            this.ListB_Entreprises.Location = new System.Drawing.Point(519, 57);
+            this.ListB_Entreprises.Name = "ListB_Entreprises";
+            this.ListB_Entreprises.Size = new System.Drawing.Size(215, 184);
+            this.ListB_Entreprises.TabIndex = 0;
+            this.ListB_Entreprises.SelectedIndexChanged += new System.EventHandler(this.ListB_Entreprises_SelectedIndexChanged);
             // 
             // TB_NumStage
             // 
@@ -74,6 +76,7 @@
             this.BTN_Precedent.TabIndex = 2;
             this.BTN_Precedent.Text = "Précédent";
             this.BTN_Precedent.UseVisualStyleBackColor = true;
+            this.BTN_Precedent.Click += new System.EventHandler(this.BTN_Precedent_Click);
             // 
             // BTN_Suivant
             // 
@@ -83,6 +86,7 @@
             this.BTN_Suivant.TabIndex = 2;
             this.BTN_Suivant.Text = "Suivant";
             this.BTN_Suivant.UseVisualStyleBackColor = true;
+            this.BTN_Suivant.Click += new System.EventHandler(this.BTN_Suivant_Click);
             // 
             // LB_Numstage
             // 
@@ -149,11 +153,21 @@
             this.BTN_Effacer.UseVisualStyleBackColor = true;
             this.BTN_Effacer.Click += new System.EventHandler(this.BTN_Effacer_Click);
             // 
+            // LB_Entreprises
+            // 
+            this.LB_Entreprises.AutoSize = true;
+            this.LB_Entreprises.Location = new System.Drawing.Point(519, 21);
+            this.LB_Entreprises.Name = "LB_Entreprises";
+            this.LB_Entreprises.Size = new System.Drawing.Size(215, 20);
+            this.LB_Entreprises.TabIndex = 5;
+            this.LB_Entreprises.Text = "Entreprises offrants un stage";
+            // 
             // Stage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 278);
+            this.Controls.Add(this.LB_Entreprises);
             this.Controls.Add(this.RTB_Description);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LB_Description);
@@ -165,7 +179,7 @@
             this.Controls.Add(this.BTN_Precedent);
             this.Controls.Add(this.TB_TypeStage);
             this.Controls.Add(this.TB_NumStage);
-            this.Controls.Add(this.LB_Entreprises);
+            this.Controls.Add(this.ListB_Entreprises);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
@@ -176,7 +190,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox LB_Entreprises;
+        private System.Windows.Forms.ListBox ListB_Entreprises;
         private System.Windows.Forms.TextBox TB_NumStage;
         private System.Windows.Forms.TextBox TB_TypeStage;
         private System.Windows.Forms.Button BTN_Precedent;
@@ -188,5 +202,6 @@
         private System.Windows.Forms.Button BTN_Ajouter;
         private System.Windows.Forms.Button BTN_Sauvegarder;
         private System.Windows.Forms.Button BTN_Effacer;
+        private System.Windows.Forms.Label LB_Entreprises;
     }
 }
