@@ -41,8 +41,8 @@
             this.BTN_Sauvegarder = new System.Windows.Forms.Button();
             this.BTN_Effacer = new System.Windows.Forms.Button();
             this.LB_Entreprises = new System.Windows.Forms.Label();
-            this.LB_NomEntreprise = new System.Windows.Forms.Label();
-            this.CB_NomEntreprise = new System.Windows.Forms.ComboBox();
+            this.LB_NumEntreprise = new System.Windows.Forms.Label();
+            this.CB_NumEntreprise = new System.Windows.Forms.ComboBox();
             this.BTN_Vider = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             // 
             this.ListB_Entreprises.FormattingEnabled = true;
             this.ListB_Entreprises.ItemHeight = 20;
-            this.ListB_Entreprises.Location = new System.Drawing.Point(519, 57);
+            this.ListB_Entreprises.Location = new System.Drawing.Point(551, 67);
             this.ListB_Entreprises.Name = "ListB_Entreprises";
             this.ListB_Entreprises.Size = new System.Drawing.Size(215, 204);
             this.ListB_Entreprises.TabIndex = 0;
@@ -59,14 +59,14 @@
             // TB_NumStage
             // 
             this.TB_NumStage.Enabled = false;
-            this.TB_NumStage.Location = new System.Drawing.Point(175, 21);
+            this.TB_NumStage.Location = new System.Drawing.Point(198, 21);
             this.TB_NumStage.Name = "TB_NumStage";
             this.TB_NumStage.Size = new System.Drawing.Size(175, 26);
             this.TB_NumStage.TabIndex = 1;
             // 
             // TB_TypeStage
             // 
-            this.TB_TypeStage.Location = new System.Drawing.Point(175, 173);
+            this.TB_TypeStage.Location = new System.Drawing.Point(198, 173);
             this.TB_TypeStage.Name = "TB_TypeStage";
             this.TB_TypeStage.Size = new System.Drawing.Size(175, 26);
             this.TB_TypeStage.TabIndex = 1;
@@ -120,7 +120,7 @@
             // 
             // RTB_Description
             // 
-            this.RTB_Description.Location = new System.Drawing.Point(175, 67);
+            this.RTB_Description.Location = new System.Drawing.Point(198, 67);
             this.RTB_Description.Name = "RTB_Description";
             this.RTB_Description.Size = new System.Drawing.Size(175, 82);
             this.RTB_Description.TabIndex = 4;
@@ -128,7 +128,7 @@
             // 
             // BTN_Ajouter
             // 
-            this.BTN_Ajouter.Location = new System.Drawing.Point(385, 40);
+            this.BTN_Ajouter.Location = new System.Drawing.Point(417, 50);
             this.BTN_Ajouter.Name = "BTN_Ajouter";
             this.BTN_Ajouter.Size = new System.Drawing.Size(112, 34);
             this.BTN_Ajouter.TabIndex = 2;
@@ -138,7 +138,7 @@
             // 
             // BTN_Sauvegarder
             // 
-            this.BTN_Sauvegarder.Location = new System.Drawing.Point(385, 93);
+            this.BTN_Sauvegarder.Location = new System.Drawing.Point(417, 103);
             this.BTN_Sauvegarder.Name = "BTN_Sauvegarder";
             this.BTN_Sauvegarder.Size = new System.Drawing.Size(112, 34);
             this.BTN_Sauvegarder.TabIndex = 2;
@@ -148,7 +148,7 @@
             // 
             // BTN_Effacer
             // 
-            this.BTN_Effacer.Location = new System.Drawing.Point(385, 147);
+            this.BTN_Effacer.Location = new System.Drawing.Point(417, 157);
             this.BTN_Effacer.Name = "BTN_Effacer";
             this.BTN_Effacer.Size = new System.Drawing.Size(112, 34);
             this.BTN_Effacer.TabIndex = 2;
@@ -159,34 +159,34 @@
             // LB_Entreprises
             // 
             this.LB_Entreprises.AutoSize = true;
-            this.LB_Entreprises.Location = new System.Drawing.Point(519, 21);
+            this.LB_Entreprises.Location = new System.Drawing.Point(551, 31);
             this.LB_Entreprises.Name = "LB_Entreprises";
             this.LB_Entreprises.Size = new System.Drawing.Size(215, 20);
             this.LB_Entreprises.TabIndex = 5;
             this.LB_Entreprises.Text = "Entreprises offrants un stage";
             // 
-            // LB_NomEntreprise
+            // LB_NumEntreprise
             // 
-            this.LB_NomEntreprise.AutoSize = true;
-            this.LB_NomEntreprise.Location = new System.Drawing.Point(38, 223);
-            this.LB_NomEntreprise.Name = "LB_NomEntreprise";
-            this.LB_NomEntreprise.Size = new System.Drawing.Size(117, 20);
-            this.LB_NomEntreprise.TabIndex = 3;
-            this.LB_NomEntreprise.Text = "Nom entreprise";
+            this.LB_NumEntreprise.AutoSize = true;
+            this.LB_NumEntreprise.Location = new System.Drawing.Point(38, 223);
+            this.LB_NumEntreprise.Name = "LB_NumEntreprise";
+            this.LB_NumEntreprise.Size = new System.Drawing.Size(140, 20);
+            this.LB_NumEntreprise.TabIndex = 3;
+            this.LB_NumEntreprise.Text = "Numéro entreprise";
             // 
-            // CB_NomEntreprise
+            // CB_NumEntreprise
             // 
-            this.CB_NomEntreprise.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CB_NomEntreprise.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_NomEntreprise.FormattingEnabled = true;
-            this.CB_NomEntreprise.Location = new System.Drawing.Point(175, 220);
-            this.CB_NomEntreprise.Name = "CB_NomEntreprise";
-            this.CB_NomEntreprise.Size = new System.Drawing.Size(175, 28);
-            this.CB_NomEntreprise.TabIndex = 6;
+            this.CB_NumEntreprise.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CB_NumEntreprise.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_NumEntreprise.FormattingEnabled = true;
+            this.CB_NumEntreprise.Location = new System.Drawing.Point(198, 220);
+            this.CB_NumEntreprise.Name = "CB_NumEntreprise";
+            this.CB_NumEntreprise.Size = new System.Drawing.Size(175, 28);
+            this.CB_NumEntreprise.TabIndex = 6;
             // 
             // BTN_Vider
             // 
-            this.BTN_Vider.Location = new System.Drawing.Point(385, 200);
+            this.BTN_Vider.Location = new System.Drawing.Point(417, 210);
             this.BTN_Vider.Name = "BTN_Vider";
             this.BTN_Vider.Size = new System.Drawing.Size(112, 34);
             this.BTN_Vider.TabIndex = 2;
@@ -198,11 +198,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 353);
-            this.Controls.Add(this.CB_NomEntreprise);
+            this.ClientSize = new System.Drawing.Size(790, 353);
+            this.Controls.Add(this.CB_NumEntreprise);
             this.Controls.Add(this.LB_Entreprises);
             this.Controls.Add(this.RTB_Description);
-            this.Controls.Add(this.LB_NomEntreprise);
+            this.Controls.Add(this.LB_NumEntreprise);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LB_Description);
             this.Controls.Add(this.LB_Numstage);
@@ -238,8 +238,8 @@
         private System.Windows.Forms.Button BTN_Sauvegarder;
         private System.Windows.Forms.Button BTN_Effacer;
         private System.Windows.Forms.Label LB_Entreprises;
-        private System.Windows.Forms.Label LB_NomEntreprise;
-        private System.Windows.Forms.ComboBox CB_NomEntreprise;
+        private System.Windows.Forms.Label LB_NumEntreprise;
+        private System.Windows.Forms.ComboBox CB_NumEntreprise;
         private System.Windows.Forms.Button BTN_Vider;
     }
 }

@@ -86,7 +86,7 @@ namespace TP1___Refresh
             TB_NumStage.DataBindings.Add("Text", stageDS, "STAGES.NumStg");
             RTB_Description.DataBindings.Add("Text", stageDS, "STAGES.Description");
             TB_TypeStage.DataBindings.Add("Text", stageDS, "STAGES.TypeStg");
-            CB_NomEntreprise.DataBindings.Add("Text", stageDS, "STAGES.NomEnt");
+            CB_NumEntreprise.DataBindings.Add("Text", stageDS, "STAGES.NumEnt");
         }
         private void UnbindTB()
         {
@@ -96,12 +96,12 @@ namespace TP1___Refresh
             RTB_Description.Clear();
             TB_TypeStage.DataBindings.Clear();
             TB_TypeStage.Clear();
-            CB_NomEntreprise.DataBindings.Clear();
+            CB_NumEntreprise.DataBindings.Clear();
             //CB_NomEntreprise.Items.Clear();
         }
         private void Ajouter()
         {
-            string sql = "insert into Stagesentreprises" +
+            string sql = "insert into Stages " +
                          "Values(NUMSTG_seq.nextval, :NomEnt, :Description,:Typestg)";
             try
             {
@@ -111,7 +111,7 @@ namespace TP1___Refresh
                 OracleParameter OraParaDesc = new OracleParameter(":Description", OracleDbType.Varchar2, 40);
                 OracleParameter OraParamTypestg = new OracleParameter(":Typestg", OracleDbType.Char, 3);
 
-                OraParaNomEnt.Value = CB_NomEntreprise.Text;
+                OraParaNomEnt.Value = CB_NumEntreprise.Text;
                 OraParaDesc.Value = RTB_Description.Text;
                 OraParamTypestg.Value = TB_TypeStage.Text;
 
@@ -132,7 +132,7 @@ namespace TP1___Refresh
         }
         private void Modifier()
         {
-            string sql = "update STAGES set Description=:Description typestg=:TypeStg" +
+            string sql = "update STAGES set Description=:Description typestg=:TypeStg " +
                             "where numstg=:numstg";
             try
             {
@@ -228,12 +228,12 @@ namespace TP1___Refresh
 
 
                 OracleCommand oraSelect = oracon.CreateCommand();
-                oraSelect.CommandText = "Select NomEnt From Entreprises";
+                oraSelect.CommandText = "Select NumEnt From Entreprises";
                 using (OracleDataReader oraReader = oraSelect.ExecuteReader())
                 {
                     while (oraReader.Read())
                     {
-                        CB_NomEntreprise.Items.Add(oraReader.GetString(0));
+                        CB_NumEntreprise.Items.Add(oraReader.GetString(0));
                     }
                 }
 
@@ -257,7 +257,7 @@ namespace TP1___Refresh
         private void ListB_Entreprises_SelectedIndexChanged(object sender, EventArgs e)
         {
             nomEntreprise = ListB_Entreprises.GetItemText(ListB_Entreprises.SelectedItem);
-            CB_NomEntreprise.SelectedText = nomEntreprise;
+            CB_NumEntreprise.SelectedText = nomEntreprise;
             RemplirFormulaire();
         }
 
@@ -266,7 +266,7 @@ namespace TP1___Refresh
             TB_NumStage.Clear();
             RTB_Description.Clear();
             TB_TypeStage.Clear();
-            CB_NomEntreprise.SelectedIndex = -1;
+            CB_NumEntreprise.SelectedIndex = -1;
         }
     }
 }
