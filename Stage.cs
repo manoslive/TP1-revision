@@ -101,13 +101,13 @@ namespace TP1___Refresh
         }
         private void Ajouter()
         {
-            string sql = "insert into Stages " +
-                         "Values(NUMSTG_seq.nextval, :NomEnt, :Description,:Typestg)";
+            string sql = "insert into Stages (numstg, description, nument, typestg) " +
+                         "Values(NUMSTG_seq.nextval, :Description, :NumEnt, :Typestg)";
             try
             {
                 OracleCommand oraAjout = new OracleCommand(sql, oracon);
 
-                OracleParameter OraParaNomEnt = new OracleParameter(":NomEnt", OracleDbType.Varchar2, 40);
+                OracleParameter OraParaNomEnt = new OracleParameter(":NumEnt", OracleDbType.Varchar2, 5);
                 OracleParameter OraParaDesc = new OracleParameter(":Description", OracleDbType.Varchar2, 40);
                 OracleParameter OraParamTypestg = new OracleParameter(":Typestg", OracleDbType.Char, 3);
 
@@ -115,8 +115,8 @@ namespace TP1___Refresh
                 OraParaDesc.Value = RTB_Description.Text;
                 OraParamTypestg.Value = TB_TypeStage.Text;
 
-                oraAjout.Parameters.Add(OraParaNomEnt);
                 oraAjout.Parameters.Add(OraParaDesc);
+                oraAjout.Parameters.Add(OraParaNomEnt);
                 oraAjout.Parameters.Add(OraParamTypestg);
 
                 oraAjout.ExecuteNonQuery();
@@ -132,14 +132,15 @@ namespace TP1___Refresh
         }
         private void Modifier()
         {
-            string sql = "update STAGES set Description=:Description typestg=:TypeStg " +
+            string sql = "update STAGES set Description=:Description nument=:nument, typestg=:TypeStg " +
                             "where numstg=:numstg";
             try
             {
 
                 OracleCommand oraAjout = new OracleCommand(sql, oracon);
-
+                
                 OracleParameter OraParaDescription = new OracleParameter(":Description", OracleDbType.Varchar2, 50);
+                OracleParameter OraParamNumEnt = new OracleParameter(":Nument", OracleDbType.Varchar2, 5);
                 OracleParameter OraParamTypeStg = new OracleParameter(":TypeStg", OracleDbType.Char, 3);
 
                 OraParaDescription.Value = RTB_Description.Text;
@@ -180,9 +181,9 @@ namespace TP1___Refresh
             {
                 try
                 {
-                    OracleParameter paramNumStg = new OracleParameter(":NumStg", OracleDbType.Int32);
+                    OracleParameter paramNumStg = new OracleParameter(":NumStg", OracleDbType.Varchar2, 5);
                     paramNumStg.Value = TB_NumStage.Text;
-                    string sql = "Delete from stats Where NumStg=:NumStg";
+                    string sql = "Delete from stages Where NumStg=:NumStg";
                     OracleCommand oraDelete = new OracleCommand(sql, oracon);
                     oraDelete.Parameters.Add(paramNumStg);
                     oraDelete.ExecuteNonQuery();
