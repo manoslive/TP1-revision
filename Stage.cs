@@ -97,7 +97,6 @@ namespace TP1___Refresh
             TB_TypeStage.DataBindings.Clear();
             TB_TypeStage.Clear();
             CB_NumEntreprise.DataBindings.Clear();
-            //CB_NomEntreprise.Items.Clear();
         }
         private void Ajouter()
         {
@@ -111,8 +110,8 @@ namespace TP1___Refresh
                 OracleParameter OraParaDesc = new OracleParameter(":Description", OracleDbType.Varchar2, 40);
                 OracleParameter OraParamTypestg = new OracleParameter(":Typestg", OracleDbType.Char, 3);
 
-                OraParaNomEnt.Value = CB_NumEntreprise.Text;
                 OraParaDesc.Value = RTB_Description.Text;
+                OraParaNomEnt.Value = CB_NumEntreprise.Text;
                 OraParamTypestg.Value = TB_TypeStage.Text;
 
                 oraAjout.Parameters.Add(OraParaDesc);
@@ -122,33 +121,35 @@ namespace TP1___Refresh
                 oraAjout.ExecuteNonQuery();
                 RemplirFormulaire();
             }
-            catch (OracleException ex) // Erreur "child exists"
+            catch (OracleException ex)
             {
-                if (ex.Number == 2292)
-                    MessageBox.Show("Le joueur ne doit pas avoir de statistique dans les matchs", "Erreur 2292", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message.ToString());
             }
         }
         private void Modifier()
         {
-            string sql = "update STAGES set Description=:Description nument=:nument, typestg=:TypeStg " +
-                            "where numstg=:numstg";
+            string sql = "update STAGES set Description=:Description, nument=:nument, typestg=:TypeStg " +
+                         "where numstg=:numstg";
             try
             {
 
                 OracleCommand oraAjout = new OracleCommand(sql, oracon);
-                
+
                 OracleParameter OraParaDescription = new OracleParameter(":Description", OracleDbType.Varchar2, 50);
                 OracleParameter OraParamNumEnt = new OracleParameter(":Nument", OracleDbType.Varchar2, 5);
                 OracleParameter OraParamTypeStg = new OracleParameter(":TypeStg", OracleDbType.Char, 3);
+                OracleParameter OraParamNumStg = new OracleParameter(":NumStg", OracleDbType.Int32);
 
                 OraParaDescription.Value = RTB_Description.Text;
+                OraParamNumEnt.Value = CB_NumEntreprise.Text;
                 OraParamTypeStg.Value = TB_TypeStage.Text;
+                OraParamNumStg.Value = TB_NumStage.Text;
 
 
                 oraAjout.Parameters.Add(OraParaDescription);
+                oraAjout.Parameters.Add(OraParamNumEnt);
                 oraAjout.Parameters.Add(OraParamTypeStg);
+                oraAjout.Parameters.Add(OraParamNumStg);
 
                 oraAjout.ExecuteNonQuery();
 
