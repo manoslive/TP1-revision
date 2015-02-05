@@ -29,7 +29,8 @@ namespace TP1___Refresh
         {
             Connect();
             FillListBox();
-            FillComboBox();
+            FillComboBoxNumEnt();
+            FillComboBoxTypeStage();
             // Selection de base du listbox
             ListB_Entreprises.SelectedIndex = 0;
             RemplirFormulaire();
@@ -73,7 +74,7 @@ namespace TP1___Refresh
         {
             OracleCommand oraSelect = oracon.CreateCommand();
             oraSelect.CommandText = "Select * From StagesEntreprises " +
-                                    "where NomEnt=:NomEnt "+
+                                    "where NomEnt=:NomEnt " +
                                     "order by NUMSTG";
             OracleParameter OraParamNomEnt = new OracleParameter(":NomEnt", OracleDbType.Varchar2);
             OraParamNomEnt.Value = nomEntreprise;
@@ -97,7 +98,7 @@ namespace TP1___Refresh
             UnbindTB();
             TB_NumStage.DataBindings.Add("Text", stageDS, "STAGES.NumStg");
             RTB_Description.DataBindings.Add("Text", stageDS, "STAGES.Description");
-            TB_TypeStage.DataBindings.Add("Text", stageDS, "STAGES.TypeStg");
+            CB_TypeStage.DataBindings.Add("Text", stageDS, "STAGES.TypeStg");
             CB_NumEntreprise.DataBindings.Add("Text", stageDS, "STAGES.NumEnt");
         }
         /// <summary>
@@ -109,8 +110,7 @@ namespace TP1___Refresh
             TB_NumStage.Clear();
             RTB_Description.DataBindings.Clear();
             RTB_Description.Clear();
-            TB_TypeStage.DataBindings.Clear();
-            TB_TypeStage.Clear();
+            CB_TypeStage.DataBindings.Clear();
             CB_NumEntreprise.DataBindings.Clear();
         }
         /// <summary>
@@ -130,16 +130,13 @@ namespace TP1___Refresh
 
                 OraParaDesc.Value = RTB_Description.Text;
                 OraParaNomEnt.Value = CB_NumEntreprise.Text;
-                OraParamTypestg.Value = TB_TypeStage.Text;
+                OraParamTypestg.Value = CB_TypeStage.Text;
 
                 oraAjout.Parameters.Add(OraParaDesc);
                 oraAjout.Parameters.Add(OraParaNomEnt);
                 oraAjout.Parameters.Add(OraParamTypestg);
 
-                if (TB_TypeStage.Text == "ges" || TB_TypeStage.Text == "ind")
-                    oraAjout.ExecuteNonQuery();
-                else
-                    MessageBox.Show("Erreur: Le type de stage doit être \"ges\" ou \"ind\"");
+                oraAjout.ExecuteNonQuery();
 
                 RemplirFormulaire();
             }
@@ -167,7 +164,7 @@ namespace TP1___Refresh
 
                 OraParaDescription.Value = RTB_Description.Text;
                 OraParamNumEnt.Value = CB_NumEntreprise.Text;
-                OraParamTypeStg.Value = TB_TypeStage.Text;
+                OraParamTypeStg.Value = CB_TypeStage.Text;
                 OraParamNumStg.Value = TB_NumStage.Text;
 
 
@@ -252,7 +249,7 @@ namespace TP1___Refresh
         /// <summary>
         /// Fonction qui permet de remplir le ListBox avec les numéros d'entreprises offrant des stages
         /// </summary>
-        private void FillComboBox()
+        private void FillComboBoxNumEnt()
         {
             try
             {
@@ -271,7 +268,26 @@ namespace TP1___Refresh
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        private void FillComboBoxTypeStage()
+        {
+            try
+            {
+                OracleCommand oraSelect = oracon.CreateCommand();
+                oraSelect.CommandText = "Select typestg From stages " +
+                                        "group by typestg";
+                using (OracleDataReader oraReader = oraSelect.ExecuteReader())
+                {
+                    while (oraReader.Read())
+                    {
+                        CB_TypeStage.Items.Add(oraReader.GetString(0));
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
         private void BTN_Precedent_Click(object sender, EventArgs e)
         {
             this.BindingContext[stageDS, "STAGES"].Position--;
@@ -293,27 +309,37 @@ namespace TP1___Refresh
         {
             TB_NumStage.Clear();
             RTB_Description.Clear();
-            TB_TypeStage.Clear();
+            CB_TypeStage.SelectedIndex = -1;
             CB_NumEntreprise.SelectedIndex = -1;
         }
 
         private void Controls_TextChanged(object sender, EventArgs e)
         {
-            if(TB_NumStage.Text == "")
+            if (TB_NumStage.Text == "") // S'il y a pas de stage sélectionné
             {
-                if(TB_TypeStage.Text!="" && RTB_Description.Text!="" && CB_NumEntreprise.Text!="")
+                if (CB_TypeStage.Text != "" && RTB_Description.Text != "" && CB_NumEntreprise.Text != "") // Et que ces 3 textbox ne sont pas vide
                 {
-                    BTN_Ajouter.Enabled = true;
+                    BTN_Ajouter.Enabled = true; // On peut ajouter
                 }
                 else
                 {
+                    // On disable les 2 boutons
                     BTN_Ajouter.Enabled = false;
+                    BTN_Sauvegarder.Enabled = false;
+                }
+            }
+            else
+            {
+                if (CB_TypeStage.Text != "" && RTB_Description.Text != "" && CB_NumEntreprise.Text != "")
+                {
+                    BTN_Sauvegarder.Enabled = true;
                 }
             }
         }
 
         private void TB_NumStage_TextChanged(object sender, EventArgs e)
         {
+            // Modification de l'état des boutons
             if (TB_NumStage.Text == "")
                 BTN_Effacer.Enabled = false;
             else
