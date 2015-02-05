@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Oracle.DataAccess.Client;
+using System.Text.RegularExpressions;
 
 namespace TP1___Refresh
 {
@@ -72,7 +73,8 @@ namespace TP1___Refresh
         {
             OracleCommand oraSelect = oracon.CreateCommand();
             oraSelect.CommandText = "Select * From StagesEntreprises " +
-                                    "where NomEnt=:NomEnt";
+                                    "where NomEnt=:NomEnt "+
+                                    "order by NUMSTG";
             OracleParameter OraParamNomEnt = new OracleParameter(":NomEnt", OracleDbType.Varchar2);
             OraParamNomEnt.Value = nomEntreprise;
             oraSelect.Parameters.Add(OraParamNomEnt);
@@ -134,7 +136,11 @@ namespace TP1___Refresh
                 oraAjout.Parameters.Add(OraParaNomEnt);
                 oraAjout.Parameters.Add(OraParamTypestg);
 
-                oraAjout.ExecuteNonQuery();
+                if (TB_TypeStage.Text == "ges" || TB_TypeStage.Text == "ind")
+                    oraAjout.ExecuteNonQuery();
+                else
+                    MessageBox.Show("Erreur: Le type de stage doit être \"ges\" ou \"ind\"");
+
                 RemplirFormulaire();
             }
             catch (OracleException ex)
@@ -289,6 +295,12 @@ namespace TP1___Refresh
             RTB_Description.Clear();
             TB_TypeStage.Clear();
             CB_NumEntreprise.SelectedIndex = -1;
+        }
+
+        private void TB_TypeStage_TextChanged(object sender, EventArgs e)
+        {
+            if (!Regex.IsMatch(TB_TypeStage.Text, @"^[a-zA-Z]+$"))
+                TB_TypeStage.Text = "";
         }
     }
 }
