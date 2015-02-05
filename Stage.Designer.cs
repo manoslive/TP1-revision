@@ -165,6 +165,7 @@
             // 
             // BTN_Effacer
             // 
+            this.BTN_Effacer.Enabled = false;
             this.BTN_Effacer.Location = new System.Drawing.Point(278, 102);
             this.BTN_Effacer.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Effacer.Name = "BTN_Effacer";

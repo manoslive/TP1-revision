@@ -296,17 +296,6 @@ namespace TP1___Refresh
             TB_TypeStage.Clear();
             CB_NumEntreprise.SelectedIndex = -1;
         }
-        private void TB_NumStage_TextChanged(object sender, EventArgs e)
-        {
-            if(TB_NumStage.Text == "")
-            {
-                BTN_Effacer.Enabled = false;
-            }
-            else
-            {
-                BTN_Effacer.Enabled = true;
-            }
-        }
 
         private void Controls_TextChanged(object sender, EventArgs e)
         {
@@ -321,6 +310,14 @@ namespace TP1___Refresh
                     BTN_Ajouter.Enabled = false;
                 }
             }
+        }
+
+        private void TB_NumStage_TextChanged(object sender, EventArgs e)
+        {
+            if (TB_NumStage.Text == "")
+                BTN_Effacer.Enabled = false;
+            else
+                BTN_Effacer.Enabled = true;
         }
     }
 }
