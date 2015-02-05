@@ -33,11 +33,15 @@ namespace TP1___Refresh
             ListB_Entreprises.SelectedIndex = 0;
             RemplirFormulaire();
         }
+        /// <summary>
+        /// Fonction Connect effectu la connection à la base de donnée
+        /// </summary>
         public bool Connect()
         {
             bool resultat = false;
             try
             {
+                //Ouverture de la connection
                 string chaineConnection = "Data Source = " + Dsource + ";User Id =cooperch;Password=ORACLE1";
                 oracon.ConnectionString = chaineConnection;
                 oracon.Open();
@@ -61,6 +65,9 @@ namespace TP1___Refresh
             }
             return resultat;
         }
+        /// <summary>
+        /// Fonction qui affiche la liste des stages offerts selon l'entreprise choisi
+        /// </summary>
         private void RemplirFormulaire()
         {
             OracleCommand oraSelect = oracon.CreateCommand();
@@ -80,6 +87,9 @@ namespace TP1___Refresh
             }
             UpdateLinkTB();
         }
+        /// <summary>
+        /// Update des databindings avec les OracleParmeters
+        /// </summary>
         private void UpdateLinkTB()
         {
             UnbindTB();
@@ -88,6 +98,9 @@ namespace TP1___Refresh
             TB_TypeStage.DataBindings.Add("Text", stageDS, "STAGES.TypeStg");
             CB_NumEntreprise.DataBindings.Add("Text", stageDS, "STAGES.NumEnt");
         }
+        /// <summary>
+        /// Unbind et clear de touts les controles de la form
+        /// </summary>
         private void UnbindTB()
         {
             TB_NumStage.DataBindings.Clear();
@@ -98,6 +111,9 @@ namespace TP1___Refresh
             TB_TypeStage.Clear();
             CB_NumEntreprise.DataBindings.Clear();
         }
+        /// <summary>
+        /// Fonction Ajouter qui permet d'effectuer un ajout(insert) d'un stage 
+        /// </summary>
         private void Ajouter()
         {
             string sql = "insert into Stages (numstg, description, nument, typestg) " +
@@ -126,6 +142,9 @@ namespace TP1___Refresh
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+        /// <summary>
+        /// Fonction modifier qui permet d'effectuer une modificaton(update) d'un stage
+        /// </summary>
         private void Modifier()
         {
             string sql = "update STAGES set Description=:Description, nument=:nument, typestg=:TypeStg " +
@@ -176,6 +195,9 @@ namespace TP1___Refresh
         {
             Supprimer();
         }
+        /// <summary>
+        /// Fonction Supprimer qui permet d'effectuer une suppression(Delete) d'une entreprise
+        /// </summary>
         private void Supprimer()
         {
             if (MessageBox.Show("Voulez-vous vraiment effacer cette entrée ?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
@@ -199,13 +221,13 @@ namespace TP1___Refresh
                 }
             }
         }
-
+        /// <summary>
+        /// Fonction qui permet de remplir le ListBox avec les noms d'entreprises offrant des stages
+        /// </summary>
         private void FillListBox()
         {
             try
             {
-
-
                 OracleCommand oraSelect = oracon.CreateCommand();
                 oraSelect.CommandText = "Select NomEnt From Entreprises";
                 using (OracleDataReader oraReader = oraSelect.ExecuteReader())
@@ -215,20 +237,19 @@ namespace TP1___Refresh
                         ListB_Entreprises.Items.Add(oraReader.GetString(0));
                     }
                 }
-
             }
             catch (OracleException ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        /// <summary>
+        /// Fonction qui permet de remplir le ListBox avec les numéros d'entreprises offrant des stages
+        /// </summary>
         private void FillComboBox()
         {
             try
             {
-
-
                 OracleCommand oraSelect = oracon.CreateCommand();
                 oraSelect.CommandText = "Select NumEnt From Entreprises";
                 using (OracleDataReader oraReader = oraSelect.ExecuteReader())
@@ -238,7 +259,6 @@ namespace TP1___Refresh
                         CB_NumEntreprise.Items.Add(oraReader.GetString(0));
                     }
                 }
-
             }
             catch (OracleException ex)
             {
