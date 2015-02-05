@@ -42,7 +42,7 @@ namespace TP1___Refresh
             bool resultat = false;
             try
             {
-                //Ouverture de la connection
+                //Ouverture de la connection avec les informations pour que vous n'ayez pas à les entrer
                 string chaineConnection = "Data Source = " + Dsource + ";User Id =cooperch;Password=ORACLE1";
                 oracon.ConnectionString = chaineConnection;
                 oracon.Open();
