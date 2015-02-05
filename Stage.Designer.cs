@@ -50,7 +50,7 @@
             // 
             this.ListB_Entreprises.FormattingEnabled = true;
             this.ListB_Entreprises.Location = new System.Drawing.Point(367, 44);
-            this.ListB_Entreprises.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ListB_Entreprises.Margin = new System.Windows.Forms.Padding(2);
             this.ListB_Entreprises.Name = "ListB_Entreprises";
             this.ListB_Entreprises.Size = new System.Drawing.Size(145, 134);
             this.ListB_Entreprises.TabIndex = 0;
@@ -60,25 +60,26 @@
             // 
             this.TB_NumStage.Enabled = false;
             this.TB_NumStage.Location = new System.Drawing.Point(132, 14);
-            this.TB_NumStage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TB_NumStage.Margin = new System.Windows.Forms.Padding(2);
             this.TB_NumStage.Name = "TB_NumStage";
             this.TB_NumStage.Size = new System.Drawing.Size(118, 20);
             this.TB_NumStage.TabIndex = 1;
+            this.TB_NumStage.TextChanged += new System.EventHandler(this.TB_NumStage_TextChanged);
             // 
             // TB_TypeStage
             // 
             this.TB_TypeStage.Location = new System.Drawing.Point(132, 112);
-            this.TB_TypeStage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TB_TypeStage.Margin = new System.Windows.Forms.Padding(2);
             this.TB_TypeStage.MaxLength = 3;
             this.TB_TypeStage.Name = "TB_TypeStage";
             this.TB_TypeStage.Size = new System.Drawing.Size(118, 20);
             this.TB_TypeStage.TabIndex = 1;
-            this.TB_TypeStage.TextChanged += new System.EventHandler(this.TB_TypeStage_TextChanged);
+            this.TB_TypeStage.TextChanged += new System.EventHandler(this.Controls_TextChanged);
             // 
             // BTN_Precedent
             // 
             this.BTN_Precedent.Location = new System.Drawing.Point(38, 188);
-            this.BTN_Precedent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_Precedent.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Precedent.Name = "BTN_Precedent";
             this.BTN_Precedent.Size = new System.Drawing.Size(75, 22);
             this.BTN_Precedent.TabIndex = 2;
@@ -89,7 +90,7 @@
             // BTN_Suivant
             // 
             this.BTN_Suivant.Location = new System.Drawing.Point(159, 188);
-            this.BTN_Suivant.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_Suivant.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Suivant.Name = "BTN_Suivant";
             this.BTN_Suivant.Size = new System.Drawing.Size(75, 22);
             this.BTN_Suivant.TabIndex = 2;
@@ -130,17 +131,19 @@
             // RTB_Description
             // 
             this.RTB_Description.Location = new System.Drawing.Point(132, 44);
-            this.RTB_Description.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RTB_Description.Margin = new System.Windows.Forms.Padding(2);
             this.RTB_Description.MaxLength = 60;
             this.RTB_Description.Name = "RTB_Description";
             this.RTB_Description.Size = new System.Drawing.Size(118, 55);
             this.RTB_Description.TabIndex = 4;
             this.RTB_Description.Text = "";
+            this.RTB_Description.TextChanged += new System.EventHandler(this.Controls_TextChanged);
             // 
             // BTN_Ajouter
             // 
+            this.BTN_Ajouter.Enabled = false;
             this.BTN_Ajouter.Location = new System.Drawing.Point(278, 32);
-            this.BTN_Ajouter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_Ajouter.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Ajouter.Name = "BTN_Ajouter";
             this.BTN_Ajouter.Size = new System.Drawing.Size(75, 22);
             this.BTN_Ajouter.TabIndex = 2;
@@ -150,8 +153,9 @@
             // 
             // BTN_Sauvegarder
             // 
+            this.BTN_Sauvegarder.Enabled = false;
             this.BTN_Sauvegarder.Location = new System.Drawing.Point(278, 67);
-            this.BTN_Sauvegarder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_Sauvegarder.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Sauvegarder.Name = "BTN_Sauvegarder";
             this.BTN_Sauvegarder.Size = new System.Drawing.Size(75, 22);
             this.BTN_Sauvegarder.TabIndex = 2;
@@ -162,7 +166,7 @@
             // BTN_Effacer
             // 
             this.BTN_Effacer.Location = new System.Drawing.Point(278, 102);
-            this.BTN_Effacer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_Effacer.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Effacer.Name = "BTN_Effacer";
             this.BTN_Effacer.Size = new System.Drawing.Size(75, 22);
             this.BTN_Effacer.TabIndex = 2;
@@ -196,15 +200,16 @@
             this.CB_NumEntreprise.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CB_NumEntreprise.FormattingEnabled = true;
             this.CB_NumEntreprise.Location = new System.Drawing.Point(132, 143);
-            this.CB_NumEntreprise.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CB_NumEntreprise.Margin = new System.Windows.Forms.Padding(2);
             this.CB_NumEntreprise.Name = "CB_NumEntreprise";
             this.CB_NumEntreprise.Size = new System.Drawing.Size(118, 21);
             this.CB_NumEntreprise.TabIndex = 6;
+            this.CB_NumEntreprise.TextChanged += new System.EventHandler(this.Controls_TextChanged);
             // 
             // BTN_Vider
             // 
             this.BTN_Vider.Location = new System.Drawing.Point(278, 136);
-            this.BTN_Vider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_Vider.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_Vider.Name = "BTN_Vider";
             this.BTN_Vider.Size = new System.Drawing.Size(75, 22);
             this.BTN_Vider.TabIndex = 2;
@@ -233,7 +238,7 @@
             this.Controls.Add(this.TB_TypeStage);
             this.Controls.Add(this.TB_NumStage);
             this.Controls.Add(this.ListB_Entreprises);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Stage";
             this.Text = "Stage";
             this.Load += new System.EventHandler(this.Stage_Load);
